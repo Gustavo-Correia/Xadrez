@@ -2,10 +2,16 @@ package application;
 
 import boardgame.Position;
 import boardgame.board;
+import chess.ChessMatch;
+import chess.ChessPiece;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        board board = new board(8, 8);
+        ChessMatch chessMatch = new ChessMatch();
+        
+        UI.printBoard(chessMatch.getpieces());
 
     }
+
+    
 }

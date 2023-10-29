@@ -1,6 +1,7 @@
 package boardgame;
 
 public class board {
+
     private int rows;
     private int columns;
     private Piece[][] pieces;
@@ -12,7 +13,7 @@ public class board {
     }
 
 
-    
+
     public int getRows() {
         return rows;
     }
@@ -29,5 +30,10 @@ public class board {
         this.columns = columns;
     }
     
-    
+    public Piece piece(int row, int column){
+		return pieces[row][column];
+    }
+    public Piece piece(Position position){
+        return piece(position.getRow(), position.getColumn());
+    }
 }

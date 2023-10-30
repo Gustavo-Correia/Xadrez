@@ -20,6 +20,10 @@ public class App {
             System.out.println();
             System.out.print("selecione a peça:");
             ChessPosition source = UI.readChessPosition(sc);
+            boolean[][] possibleMove = chessMatch.possibleMove(source);
+            UI.clearScreen();
+            UI.printBoard(chessMatch.getpieces(), possibleMove);
+            
             System.out.println();
             System.out.print("destino da peça:");
             ChessPosition target = UI.readChessPosition(sc);

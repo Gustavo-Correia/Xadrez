@@ -1,7 +1,7 @@
 package ChessPiece;
 
 
-import java.security.Policy;
+
 
 import boardgame.Position;
 import boardgame.board;
@@ -15,7 +15,7 @@ public class King extends ChessPiece{
     
     @Override
     public String toString() {
-        return "K";
+        return "R";
     }
 
     private boolean canMove(Position position){

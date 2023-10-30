@@ -16,12 +16,15 @@ public class ChessMatch {
     private board board;
     private boolean check;
 	private boolean checkMate;
+    private ChessPiece enPassantVulnerable;
 
     private List<Piece> piecesontheboard = new ArrayList<>();
     private List<Piece> capturedpieces = new ArrayList<>();
 
     
-    
+    public ChessPiece getEnPassantVulnerable() {
+		return enPassantVulnerable;
+	}
 
     public int getTurn() {
         return turn;

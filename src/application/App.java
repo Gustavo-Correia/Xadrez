@@ -35,7 +35,18 @@ public class App {
             if(captured != null){
                 captured.add(capturedPiece);
             }
+            if(chessMatch.getpromoted() != null){
+                
+                System.out.println("Digite a letra que gostaria de promover essa peça (T/R/C/B):");
+                String type = sc.nextLine().toUpperCase();
+
+                while(!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
+                    System.out.println("Valor invalido! Digite a letra que gostaria de promover essa peça (T/R/C/B) novamente:");
+                    type = sc.nextLine().toUpperCase();
+                }   
+                chessMatch.replacepromotedPiece(type);
            
+            }
           } catch (ChessException e) {
                 System.out.println(e.getMessage());
                 sc.nextLine();

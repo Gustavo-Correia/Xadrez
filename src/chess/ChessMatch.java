@@ -21,8 +21,12 @@ public class ChessMatch {
     private boolean check;
 	private boolean checkMate;
     private ChessPiece enPassantVulnerable;
-
+    private ChessPiece promoted;
     private List<Piece> piecesontheboard = new ArrayList<>();
+    public ChessPiece getpromoted() {
+        return promoted;
+    }
+
     private List<Piece> capturedpieces = new ArrayList<>();
 
     
@@ -99,6 +103,17 @@ public class ChessMatch {
             undoMove(source, target, capturedPiece);
             throw new ChessException("Voce não pode se colocar em cheque!");
             }
+        ChessPiece movedPiece = (ChessPiece)board.piece(target);
+        
+        promoted= null;
+        
+        if(movedPiece instanceof Pawn){
+            if((movedPiece.getColor() == Color.WHITE && target.getRow()==0) || movedPiece.getColor() == Color.BLACK && target.getRow()==7){
+                promoted = (ChessPiece)board.piece(target);
+                promoted = replacepromotedPiece("Q");
+            }
+        }
+
         check = (testCheck(opponent(currentPlayer))) ? true : false;
         if(testCheckMate(opponent(currentPlayer))){
             checkMate = true;
@@ -110,7 +125,32 @@ public class ChessMatch {
         return (ChessPiece) capturedPiece;
     }
 
-    
+    public ChessPiece replacepromotedPiece(String type) {
+		if (promoted == null) {
+			throw new IllegalStateException("There is no piece to be promoted");
+		}
+		if (!type.equals("B") && !type.equals("N") && !type.equals("R") & !type.equals("Q")) {
+			return promoted;
+		}
+		
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = board.removePiece(pos);
+		piecesontheboard.remove(p);
+		
+		ChessPiece newPiece = newPiece(type, promoted.getColor());
+		board.placepiece(newPiece, pos);
+		piecesontheboard.add(newPiece);
+		
+		return newPiece;
+	}
+
+    private ChessPiece newPiece(String type, Color color) {
+		if (type.equals("B")) return new Bishop(board, color);
+		if (type.equals("N")) return new Knight(board, color);
+		if (type.equals("Q")) return new Queen(board, color);
+		return new Rook(board, color);
+	}
+
 
     private Piece makeMove(Position source, Position target){
         ChessPiece p = (ChessPiece)board.removePiece(source);

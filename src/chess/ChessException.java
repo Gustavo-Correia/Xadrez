@@ -1,6 +1,6 @@
 package chess;
 
-import boardgame.board;
+
 import boardgame.boardException;
 
 public class ChessException extends boardException{

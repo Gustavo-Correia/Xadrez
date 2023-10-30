@@ -15,12 +15,12 @@ public class ChessMatch {
     private Color currentPlayer;
     private board board;
     private boolean check;
+	private boolean checkMate;
 
     private List<Piece> piecesontheboard = new ArrayList<>();
     private List<Piece> capturedpieces = new ArrayList<>();
 
     
-
     
 
     public int getTurn() {
@@ -38,6 +38,13 @@ public class ChessMatch {
     public boolean getCheck() {
         return check;
     }
+
+    
+
+
+    public boolean getCheckMate() {
+		return checkMate;
+	}
 
 
 
@@ -86,9 +93,17 @@ public class ChessMatch {
             throw new ChessException("Voce não pode se colocar em cheque!");
             }
         check = (testCheck(opponent(currentPlayer))) ? true : false;
-        nextTurn();
+        if(testCheckMate(opponent(currentPlayer))){
+            checkMate = true;
+        }
+        else{
+            nextTurn();
+        }
+      
         return (ChessPiece) capturedPiece;
     }
+
+    
 
     private Piece makeMove(Position source, Position target){
         Piece p = board.removePiece(source);
